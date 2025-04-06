@@ -1,0 +1,150 @@
+General:
+
+Use [DMVentasJardineria]
+select 
+  [IDFACVentas],
+  [ID_pedido], 
+  [ID_detalle_pedido],
+  [fecha_pedido], [estado],
+  [ID_cliente],
+  [ID_producto],
+  [cantidad],
+  [precio_unidad],
+  [total]
+from [dbo].[FACVentas]
+
+Resultado: 318 rows
+
+USE [jardineria]
+SELECT
+  [ID_detalle_pedido],
+  [ID_pedido],
+  [ID_producto],
+  [cantidad],
+  [precio_unidad],
+  [numero_linea]
+from [dbo].[detalle_pedido]
+
+Resultado: 318 rows
+
+Conclusión: El número de filas es igual en ambas consultas, permitiendo identificar que no hay campos repetidos o perdidos
+en la tabla de FACVentasJArdinería en comparación a los pedidos de la tabla detalle_pedido de jardineria.
+--------------------------------------------------------------------------------------------------
+
+USE [DMVentasJardineria];
+SELECT 
+  [IDFACVentas], 
+  [ID_pedido], 
+  [ID_detalle_pedido], 
+  [fecha_pedido], 
+  [estado], 
+  [ID_cliente], 
+  [ID_producto], 
+  [cantidad], 
+  [precio_unidad], 
+  [total]
+FROM [dbo].[FACVentas]
+WHERE [ID_detalle_pedido] = 15;
+
+
+USE [jardineria];
+SELECT 
+  [ID_detalle_pedido], 
+  [ID_pedido], 
+  [ID_producto], 
+  [cantidad], 
+  [precio_unidad], 
+  [numero_linea],
+  [cantidad] * [precio_unidad] AS total_linea
+FROM [dbo].[detalle_pedido]
+WHERE [ID_detalle_pedido] = 15; 
+
+NOTA: En ambos, el ID_pedido es 3, a continuación se consulta la información con ese ID en la tabla pedido de jardineria
+
+
+USE [jardineria];
+SELECT 
+  [ID_pedido], 
+  [fecha_pedido], 
+  [estado], 
+  [comentarios], 
+  [ID_cliente]
+FROM [dbo].[pedido]
+WHERE [ID_pedido] = 3; (Los valores coinciden perfectamente con la tabla de FACVentasJardineria)
+
+Conclusión: Tras validar las tres tablas resultantes de cada consulta, los valores coinciden perfectamente.
+
+--------------------------------------------------------------------------
+
+USE [DMVentasJardineria]
+SELECT
+  [IDFACVentas], 
+  [ID_pedido], 
+  [ID_detalle_pedido], 
+  [total]
+FROM [dbo].[FACVentas]
+WHERE [ID_detalle_pedido] = 15
+
+
+USE [jardineria];
+SELECT 
+  [ID_detalle_pedido], 
+  [ID_pedido], 
+  [ID_producto], 
+  [cantidad], 
+  [precio_unidad], 
+  [cantidad] * [precio_unidad] AS total_linea
+FROM [dbo].[detalle_pedido]
+WHERE [ID_detalle_pedido] = 15;
+
+
+
+-------------------------------------------------------------------------
+
+USE [DMVentasJardineria];
+SELECT 
+  [ID_cliente], 
+  [nombre_cliente], 
+  [nombre_contacto], 
+  [apellido_contacto], 
+FROM [dbo].[DimCliente]
+WHERE [ID_cliente] = 5;
+
+
+USE [jardineria];
+SELECT 
+  [ID_cliente], 
+  [nombre_cliente], 
+  [nombre_contacto], 
+  [apellido_contacto], 
+FROM [dbo].[cliente]
+WHERE [ID_cliente] = 5;
+
+Conclusiones: Las consultas coinciden y traen el mismo cliente y contacto
+
+----------------------------------------------------------------------
+
+USE [jardineria];
+
+SELECT 
+  p.[ID_producto] AS ID_transaccional,
+  dp.[ID_producto] AS ID_dim,
+
+  p.[CodigoProducto] AS codigo_transaccional,
+  dp.[codigo_Producto] AS codigo_dim,
+
+  p.[nombre] AS nombre_transaccional,
+  dp.[nombre_producto] AS nombre_dim,
+
+  p.[cantidad_en_stock] AS stock_transaccional,
+  dp.[cantidad_en_stock] AS stock_dim,
+
+  p.[precio_venta] AS precio_venta_transaccional,
+  dp.[precio_venta] AS precio_venta_dim
+
+FROM [jardineria].[dbo].[producto] p
+FULL JOIN [DMVentasJardineria].[dbo].[DimProducto] dp
+  ON p.[ID_producto] = dp.[ID_producto]
+WHERE p.[ID_producto] = 5 OR dp.[ID_producto] = 5;
+
+Conclusión:Todos los resultados coinciden en ambas tablas cuando se cambian los ID_producto en el WHERE.

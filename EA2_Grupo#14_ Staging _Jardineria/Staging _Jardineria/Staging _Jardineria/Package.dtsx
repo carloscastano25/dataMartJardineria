@@ -1,0 +1,2671 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/9/2025 9:30:54 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-D9MGRA0"
+  DTS:CreatorName="DESKTOP-D9MGRA0\Carlos Dueiner"
+  DTS:DTSID="{A7B39E69-AD51-4E6E-8FBA-F36CB4C2F60B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="9226"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="33"
+  DTS:VersionGUID="{3E110F05-D453-4875-886D-DB13BED76298}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{2724C379-DBB8-4CEA-AC41-BC7D586D8807}"
+      DTS:ObjectName="DESKTOP-D9MGRA0.jardineria">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DESKTOP-D9MGRA0;Initial Catalog=jardineria;Integrated Security=True;Encrypt=False;Application Name=SSIS-Package-{2724C379-DBB8-4CEA-AC41-BC7D586D8807}DESKTOP-D9MGRA0.jardineria;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{2B4E7D22-8AAE-4370-9CFD-2E3109B3B347}"
+      DTS:ObjectName="DESKTOP-D9MGRA0.StagingJardineria">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DESKTOP-D9MGRA0;Initial Catalog=StagingJardineria;Integrated Security=True;Encrypt=False;Application Name=SSIS-Package-{2B4E7D22-8AAE-4370-9CFD-2E3109B3B347}DESKTOP-D9MGRA0.StagingJardineria;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\ExtraccionFAC"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D3C15BE9-A8D9-443A-B6E2-3A68687420D2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ExtraccionFAC"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ExtraccionFAC\DestinoStagingDetallePedido"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DestinoStagingDetallePedido"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"StagingDetallePedido"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].Columns[ID_detalle_pedido]"
+                      cachedDataType="i4"
+                      cachedName="ID_detalle_pedido"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_detalle_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_detalle_pedido]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].Columns[ID_pedido]"
+                      cachedDataType="i4"
+                      cachedName="ID_pedido"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_pedido]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].Columns[ID_producto]"
+                      cachedDataType="i4"
+                      cachedName="ID_producto"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_producto]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_producto]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].Columns[cantidad]"
+                      cachedDataType="i4"
+                      cachedName="cantidad"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[cantidad]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[cantidad]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].Columns[precio_unidad]"
+                      cachedDataType="numeric"
+                      cachedName="precio_unidad"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[precio_unidad]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[precio_unidad]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].Columns[numero_linea]"
+                      cachedDataType="i2"
+                      cachedName="numero_linea"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[numero_linea]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[numero_linea]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_detalle_pedido]"
+                      dataType="i4"
+                      name="ID_detalle_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_pedido]"
+                      dataType="i4"
+                      name="ID_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_producto]"
+                      dataType="i4"
+                      name="ID_producto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[cantidad]"
+                      dataType="i4"
+                      name="cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[precio_unidad]"
+                      dataType="numeric"
+                      name="precio_unidad"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input].ExternalColumns[numero_linea]"
+                      dataType="i2"
+                      name="numero_linea" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionFAC\DestinoStagingPedido"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DestinoStagingPedido"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"StagingPedido"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionFAC\DestinoStagingPedido.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].Columns[ID_pedido]"
+                      cachedDataType="i4"
+                      cachedName="ID_pedido"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[ID_pedido]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].Columns[fecha_pedido]"
+                      cachedDataType="dbDate"
+                      cachedName="fecha_pedido"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[fecha_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_pedido]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].Columns[fecha_esperada]"
+                      cachedDataType="dbDate"
+                      cachedName="fecha_esperada"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[fecha_esperada]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_esperada]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].Columns[fecha_entrega]"
+                      cachedDataType="dbDate"
+                      cachedName="fecha_entrega"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[fecha_entrega]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_entrega]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].Columns[estado]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="estado"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[estado]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[estado]" />
+                    <inputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].Columns[ID_cliente]"
+                      cachedDataType="i4"
+                      cachedName="ID_cliente"
+                      externalMetadataColumnId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_cliente]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[ID_cliente]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_pedido]"
+                      dataType="i4"
+                      name="ID_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[fecha_pedido]"
+                      dataType="dbTimeStamp"
+                      name="fecha_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[fecha_esperada]"
+                      dataType="dbTimeStamp"
+                      name="fecha_esperada" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[fecha_entrega]"
+                      dataType="dbTimeStamp"
+                      name="fecha_entrega" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[estado]"
+                      dataType="wstr"
+                      length="15"
+                      name="estado" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input].ExternalColumns[ID_cliente]"
+                      dataType="i4"
+                      name="ID_cliente" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionFAC\DestinoStagingPedido.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\DestinoStagingPedido.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\DestinoStagingPedido.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\DestinoStagingPedido.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionFAC\OrigenDetallePedido"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="OrigenDetallePedido"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [ID_detalle_pedido]
+      ,[ID_pedido]
+      ,[ID_producto]
+      ,[cantidad]
+      ,[precio_unidad]
+      ,[numero_linea]
+  FROM [jardineria].[dbo].[detalle_pedido]</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionFAC\OrigenDetallePedido.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_detalle_pedido]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[ID_detalle_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_detalle_pedido]"
+                      name="ID_detalle_pedido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_pedido]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[ID_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_pedido]"
+                      name="ID_pedido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_producto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[ID_producto]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[ID_producto]"
+                      name="ID_producto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[cantidad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[cantidad]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[cantidad]"
+                      name="cantidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[precio_unidad]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[precio_unidad]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[precio_unidad]"
+                      name="precio_unidad"
+                      precision="15"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[numero_linea]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[numero_linea]"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].Columns[numero_linea]"
+                      name="numero_linea"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[ID_detalle_pedido]"
+                      dataType="i4"
+                      name="ID_detalle_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[ID_pedido]"
+                      dataType="i4"
+                      name="ID_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[ID_producto]"
+                      dataType="i4"
+                      name="ID_producto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[cantidad]"
+                      dataType="i4"
+                      name="cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[precio_unidad]"
+                      dataType="numeric"
+                      name="precio_unidad"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output].ExternalColumns[numero_linea]"
+                      dataType="i2"
+                      name="numero_linea" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ID_detalle_pedido]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ID_detalle_pedido]"
+                      name="ID_detalle_pedido" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ID_pedido]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ID_pedido]"
+                      name="ID_pedido" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ID_producto]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ID_producto]"
+                      name="ID_producto" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[cantidad]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[cantidad]"
+                      name="cantidad" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[precio_unidad]"
+                      dataType="numeric"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[precio_unidad]"
+                      name="precio_unidad"
+                      precision="15"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[numero_linea]"
+                      dataType="i2"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[numero_linea]"
+                      name="numero_linea" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionFAC\OrigenPedido"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="OrigenPedido"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [ID_pedido]
+      ,[fecha_pedido]
+      ,[fecha_esperada]
+      ,[fecha_entrega]
+      ,[estado]
+      ,[ID_cliente]
+  FROM [jardineria].[dbo].[pedido]</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionFAC\OrigenPedido.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[ID_pedido]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[ID_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[ID_pedido]"
+                      name="ID_pedido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_pedido]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[fecha_pedido]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_pedido]"
+                      name="fecha_pedido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_esperada]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[fecha_esperada]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_esperada]"
+                      name="fecha_esperada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_entrega]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[fecha_entrega]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[fecha_entrega]"
+                      name="fecha_entrega"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[estado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[estado]"
+                      length="15"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[estado]"
+                      name="estado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[ID_cliente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[ID_cliente]"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].Columns[ID_cliente]"
+                      name="ID_cliente"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[ID_pedido]"
+                      dataType="i4"
+                      name="ID_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[fecha_pedido]"
+                      dataType="dbDate"
+                      name="fecha_pedido" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[fecha_esperada]"
+                      dataType="dbDate"
+                      name="fecha_esperada" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[fecha_entrega]"
+                      dataType="dbDate"
+                      name="fecha_entrega" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[estado]"
+                      dataType="wstr"
+                      length="15"
+                      name="estado" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output].ExternalColumns[ID_cliente]"
+                      dataType="i4"
+                      name="ID_cliente" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ID_pedido]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ID_pedido]"
+                      name="ID_pedido" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[fecha_pedido]"
+                      dataType="dbDate"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[fecha_pedido]"
+                      name="fecha_pedido" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[fecha_esperada]"
+                      dataType="dbDate"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[fecha_esperada]"
+                      name="fecha_esperada" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[fecha_entrega]"
+                      dataType="dbDate"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[fecha_entrega]"
+                      name="fecha_entrega" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[estado]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[estado]"
+                      name="estado" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ID_cliente]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ID_cliente]"
+                      name="ID_cliente" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ExtraccionFAC.Paths[ADO NET Source Output]"
+              endId="Package\ExtraccionFAC\DestinoStagingPedido.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\ExtraccionFAC\OrigenPedido.Outputs[ADO NET Source Output]" />
+            <path
+              refId="Package\ExtraccionFAC.Paths[ADO NET Source Output1]"
+              endId="Package\ExtraccionFAC\DestinoStagingDetallePedido.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\ExtraccionFAC\OrigenDetallePedido.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ExtraccionJardineriaCliente"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E89D74BB-81A0-43E5-9FCE-FA551351699A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ExtraccionJardineriaCliente"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DestinoStagingCliente"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"StagingCliente"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[ID_cliente]"
+                      cachedDataType="i4"
+                      cachedName="ID_cliente"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[ID_cliente]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[ID_cliente]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[nombre_cliente]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="nombre_cliente"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[nombre_cliente]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[nombre_cliente]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[nombre_contacto]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="nombre_contacto"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[nombre_contacto]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[nombre_contacto]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[apellido_contacto]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="apellido_contacto"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[apellido_contacto]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[apellido_contacto]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[telefono]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="telefono"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[telefono]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[telefono]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[pais]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="pais"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[pais]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[pais]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[ciudad]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ciudad"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[ciudad]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[ciudad]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].Columns[codigo_postal]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="codigo_postal"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[codigo_postal]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[codigo_postal]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[ID_cliente]"
+                      dataType="i4"
+                      name="ID_cliente" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[nombre_cliente]"
+                      dataType="wstr"
+                      length="50"
+                      name="nombre_cliente" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[nombre_contacto]"
+                      dataType="wstr"
+                      length="30"
+                      name="nombre_contacto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[apellido_contacto]"
+                      dataType="wstr"
+                      length="30"
+                      name="apellido_contacto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[telefono]"
+                      dataType="wstr"
+                      length="15"
+                      name="telefono" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[pais]"
+                      dataType="wstr"
+                      length="50"
+                      name="pais" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[ciudad]"
+                      dataType="wstr"
+                      length="50"
+                      name="ciudad" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input].ExternalColumns[codigo_postal]"
+                      dataType="wstr"
+                      length="10"
+                      name="codigo_postal" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionJardineriaCliente\OrigenCliente"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="OrigenCliente"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [ID_cliente]
+      ,[nombre_cliente]
+      ,[nombre_contacto]
+      ,[apellido_contacto]
+      ,[telefono]
+      ,[pais]
+      ,[ciudad]
+      ,[codigo_postal]
+  FROM [jardineria].[dbo].[cliente]</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[ID_cliente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[ID_cliente]"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[ID_cliente]"
+                      name="ID_cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[nombre_cliente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[nombre_cliente]"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[nombre_cliente]"
+                      name="nombre_cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[nombre_contacto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[nombre_contacto]"
+                      length="30"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[nombre_contacto]"
+                      name="nombre_contacto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[apellido_contacto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[apellido_contacto]"
+                      length="30"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[apellido_contacto]"
+                      name="apellido_contacto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[telefono]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[telefono]"
+                      length="15"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[telefono]"
+                      name="telefono"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[pais]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[pais]"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[pais]"
+                      name="pais"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[ciudad]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[ciudad]"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[ciudad]"
+                      name="ciudad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[codigo_postal]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[codigo_postal]"
+                      length="10"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].Columns[codigo_postal]"
+                      name="codigo_postal"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[ID_cliente]"
+                      dataType="i4"
+                      name="ID_cliente" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[nombre_cliente]"
+                      dataType="wstr"
+                      length="50"
+                      name="nombre_cliente" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[nombre_contacto]"
+                      dataType="wstr"
+                      length="30"
+                      name="nombre_contacto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[apellido_contacto]"
+                      dataType="wstr"
+                      length="30"
+                      name="apellido_contacto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[telefono]"
+                      dataType="wstr"
+                      length="15"
+                      name="telefono" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[pais]"
+                      dataType="wstr"
+                      length="50"
+                      name="pais" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[ciudad]"
+                      dataType="wstr"
+                      length="50"
+                      name="ciudad" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output].ExternalColumns[codigo_postal]"
+                      dataType="wstr"
+                      length="10"
+                      name="codigo_postal" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ID_cliente]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ID_cliente]"
+                      name="ID_cliente" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[nombre_cliente]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[nombre_cliente]"
+                      name="nombre_cliente" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[nombre_contacto]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[nombre_contacto]"
+                      name="nombre_contacto" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[apellido_contacto]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[apellido_contacto]"
+                      name="apellido_contacto" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[telefono]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[telefono]"
+                      name="telefono" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[pais]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[pais]"
+                      name="pais" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ciudad]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ciudad]"
+                      name="ciudad" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[codigo_postal]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[codigo_postal]"
+                      name="codigo_postal" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ExtraccionJardineriaCliente.Paths[ADO NET Source Output]"
+              endId="Package\ExtraccionJardineriaCliente\DestinoStagingCliente.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\ExtraccionJardineriaCliente\OrigenCliente.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ExtraccionJardineriaProducto"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C2901C2E-4721-4537-AF4B-795B7254D885}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ExtraccionJardineriaProducto"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DestinoStagingCategoriaProducto"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"StagingCategoriaProducto"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].Columns[Id_Categoria]"
+                      cachedDataType="i4"
+                      cachedName="Id_Categoria"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].ExternalColumns[Id_Categoria]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[Id_Categoria]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].Columns[Desc_Categoria]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Desc_Categoria"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].ExternalColumns[Desc_Categoria]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[Desc_Categoria]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].Columns[descripcion_texto]"
+                      cachedDataType="nText"
+                      cachedName="descripcion_texto"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].ExternalColumns[descripcion_texto]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[descripcion_texto]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].ExternalColumns[Id_Categoria]"
+                      dataType="i4"
+                      name="Id_Categoria" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].ExternalColumns[Desc_Categoria]"
+                      dataType="wstr"
+                      length="50"
+                      name="Desc_Categoria" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input].ExternalColumns[descripcion_texto]"
+                      dataType="wstr"
+                      length="2147483647"
+                      name="descripcion_texto" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DestinoStagingProducto"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"StagingProducto"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[ID_producto]"
+                      cachedDataType="i4"
+                      cachedName="ID_producto"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[ID_producto]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[ID_producto]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[CodigoProducto]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="CodigoProducto"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[codigo_Producto]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[CodigoProducto]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="70"
+                      cachedName="nombre"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[nombre_producto]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[nombre]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[Categoria]"
+                      cachedDataType="i4"
+                      cachedName="Categoria"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[categoria_producto]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[Categoria]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[proveedor]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="proveedor"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[proveedor]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[proveedor]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[cantidad_en_stock]"
+                      cachedDataType="i2"
+                      cachedName="cantidad_en_stock"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[cantidad_en_stock]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[cantidad_en_stock]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[precio_venta]"
+                      cachedDataType="numeric"
+                      cachedName="precio_venta"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[precio_venta]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[precio_venta]" />
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].Columns[precio_proveedor]"
+                      cachedDataType="numeric"
+                      cachedName="precio_proveedor"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[precio_proveedor]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[precio_proveedor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[ID_producto]"
+                      dataType="i4"
+                      name="ID_producto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[codigo_Producto]"
+                      dataType="wstr"
+                      length="15"
+                      name="codigo_Producto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[nombre_producto]"
+                      dataType="wstr"
+                      length="70"
+                      name="nombre_producto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[categoria_producto]"
+                      dataType="i4"
+                      name="categoria_producto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[proveedor]"
+                      dataType="wstr"
+                      length="50"
+                      name="proveedor" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[cantidad_en_stock]"
+                      dataType="i2"
+                      name="cantidad_en_stock" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[precio_venta]"
+                      dataType="numeric"
+                      name="precio_venta"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input].ExternalColumns[precio_proveedor]"
+                      dataType="numeric"
+                      name="precio_proveedor"
+                      precision="15"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="OrigenCategoriaProducto"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT        Id_Categoria, Desc_Categoria, descripcion_texto
+FROM            Categoria_producto</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[Id_Categoria]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].ExternalColumns[Id_Categoria]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[Id_Categoria]"
+                      name="Id_Categoria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[Desc_Categoria]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].ExternalColumns[Desc_Categoria]"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[Desc_Categoria]"
+                      name="Desc_Categoria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[descripcion_texto]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].ExternalColumns[descripcion_texto]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].Columns[descripcion_texto]"
+                      name="descripcion_texto"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].ExternalColumns[Id_Categoria]"
+                      dataType="i4"
+                      name="Id_Categoria" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].ExternalColumns[Desc_Categoria]"
+                      dataType="wstr"
+                      length="50"
+                      name="Desc_Categoria" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output].ExternalColumns[descripcion_texto]"
+                      dataType="nText"
+                      name="descripcion_texto" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[Id_Categoria]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[Id_Categoria]"
+                      name="Id_Categoria" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[Desc_Categoria]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[Desc_Categoria]"
+                      name="Desc_Categoria" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[descripcion_texto]"
+                      dataType="nText"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[descripcion_texto]"
+                      name="descripcion_texto" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionJardineriaProducto\OrigenProducto"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="OrigenProducto"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [ID_producto]
+      ,[CodigoProducto]
+      ,[nombre]
+      ,[Categoria]
+      ,[proveedor]
+      ,[cantidad_en_stock]
+      ,[precio_venta]
+      ,[precio_proveedor]
+  FROM [jardineria].[dbo].[producto]</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[ID_producto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[ID_producto]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[ID_producto]"
+                      name="ID_producto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[CodigoProducto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[CodigoProducto]"
+                      length="15"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[CodigoProducto]"
+                      name="CodigoProducto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[nombre]"
+                      length="70"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[nombre]"
+                      name="nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[Categoria]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[Categoria]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[Categoria]"
+                      name="Categoria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[proveedor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[proveedor]"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[proveedor]"
+                      name="proveedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[cantidad_en_stock]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[cantidad_en_stock]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[cantidad_en_stock]"
+                      name="cantidad_en_stock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[precio_venta]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[precio_venta]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[precio_venta]"
+                      name="precio_venta"
+                      precision="15"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[precio_proveedor]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[precio_proveedor]"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].Columns[precio_proveedor]"
+                      name="precio_proveedor"
+                      precision="15"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[ID_producto]"
+                      dataType="i4"
+                      name="ID_producto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[CodigoProducto]"
+                      dataType="wstr"
+                      length="15"
+                      name="CodigoProducto" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[nombre]"
+                      dataType="wstr"
+                      length="70"
+                      name="nombre" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[Categoria]"
+                      dataType="i4"
+                      name="Categoria" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[proveedor]"
+                      dataType="wstr"
+                      length="50"
+                      name="proveedor" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[cantidad_en_stock]"
+                      dataType="i2"
+                      name="cantidad_en_stock" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[precio_venta]"
+                      dataType="numeric"
+                      name="precio_venta"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output].ExternalColumns[precio_proveedor]"
+                      dataType="numeric"
+                      name="precio_proveedor"
+                      precision="15"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[ID_producto]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[ID_producto]"
+                      name="ID_producto" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[CodigoProducto]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[CodigoProducto]"
+                      name="CodigoProducto" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[nombre]"
+                      dataType="wstr"
+                      length="70"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[nombre]"
+                      name="nombre" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[Categoria]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[Categoria]"
+                      name="Categoria" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[proveedor]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[proveedor]"
+                      name="proveedor" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[cantidad_en_stock]"
+                      dataType="i2"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[cantidad_en_stock]"
+                      name="cantidad_en_stock" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[precio_venta]"
+                      dataType="numeric"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[precio_venta]"
+                      name="precio_venta"
+                      precision="15"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[precio_proveedor]"
+                      dataType="numeric"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[precio_proveedor]"
+                      name="precio_proveedor"
+                      precision="15"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ExtraccionJardineriaProducto.Paths[ADO NET Source Output]"
+              endId="Package\ExtraccionJardineriaProducto\DestinoStagingProducto.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\ExtraccionJardineriaProducto\OrigenProducto.Outputs[ADO NET Source Output]" />
+            <path
+              refId="Package\ExtraccionJardineriaProducto.Paths[ADO NET Source Output1]"
+              endId="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ExtraccionJardineriaTiempo"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7D35EFD7-C6BC-45BB-B5F1-1A3579A319EC}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ExtraccionJardineriaTiempo"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DestinoStagingFechaVenta"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"StagingFechaVenta"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.StagingJardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Inputs[ADO NET Destination Input].Columns[fecha_pedido]"
+                      cachedDataType="dbDate"
+                      cachedName="fecha_pedido"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Inputs[ADO NET Destination Input].ExternalColumns[fecha_pedido]"
+                      lineageId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Output].Columns[fecha_pedido]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Inputs[ADO NET Destination Input].ExternalColumns[fecha_pedido]"
+                      dataType="dbTimeStamp"
+                      name="fecha_pedido" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="OrigenFechaVenta"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [fecha_pedido]
+  FROM [jardineria].[dbo].[pedido]
+  union all
+SELECT [fecha_esperada]
+  FROM [jardineria].[dbo].[pedido]
+  union all
+SELECT [fecha_entrega]
+  FROM [jardineria].[dbo].[pedido]
+  order by fecha_pedido</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-D9MGRA0.jardineria]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Output].Columns[fecha_pedido]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Output].ExternalColumns[fecha_pedido]"
+                      lineageId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Output].Columns[fecha_pedido]"
+                      name="fecha_pedido"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Output].ExternalColumns[fecha_pedido]"
+                      dataType="dbDate"
+                      name="fecha_pedido" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Error Output].Columns[fecha_pedido]"
+                      dataType="dbDate"
+                      lineageId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Error Output].Columns[fecha_pedido]"
+                      name="fecha_pedido" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ExtraccionJardineriaTiempo.Paths[ADO NET Source Output]"
+              endId="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpieza de tablas cliente SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DA76D55E-BB0C-4AA9-B6EB-B1A82E6753B7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpieza de tablas cliente SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{2B4E7D22-8AAE-4370-9CFD-2E3109B3B347}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE StagingCliente" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpieza de tablas FechaVenta SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{73242FEB-A5D1-491E-B5E7-AB97E0786A86}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpieza de tablas FechaVenta SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{2B4E7D22-8AAE-4370-9CFD-2E3109B3B347}"
+          SQLTask:SqlStatementSource="truncate table &quot;StagingFechaVenta&quot;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpieza de tablas producto SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{399CEDB7-B880-4B55-97A9-0F0A7FE741AA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpieza de tablas producto SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{2B4E7D22-8AAE-4370-9CFD-2E3109B3B347}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [StagingProducto]&#xA;TRUNCATE TABLE [StagingCategoriaProducto]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpieza de tablas Venta SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E916AFD5-7EE7-4CC8-A0B6-625C5CEE2227}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpieza de tablas Venta SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{2B4E7D22-8AAE-4370-9CFD-2E3109B3B347}"
+          SQLTask:SqlStatementSource="truncate table &quot;StagingPedido&quot;&#xA;truncate table &quot;StagingDetallePedido&quot;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{99CD997A-D11E-4685-89FA-8BF1BA3CC276}"
+      DTS:From="Package\Limpieza de tablas producto SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\ExtraccionJardineriaProducto" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B4A3C29E-6D4E-4C16-ADA5-6AF4F077FF4C}"
+      DTS:From="Package\Limpieza de tablas cliente SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\ExtraccionJardineriaCliente" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{88FF70F1-65F3-4BAD-BE0E-8AAC40C4DA5A}"
+      DTS:From="Package\Limpieza de tablas FechaVenta SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\ExtraccionJardineriaTiempo" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{F55609EC-7C82-4C95-B37D-4228B7EEAE71}"
+      DTS:From="Package\Limpieza de tablas Venta SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\ExtraccionFAC" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="213,42"
+          Id="Package\ExtraccionJardineriaCliente"
+          TopLeft="357,101" />
+        <NodeLayout
+          Size="223,42"
+          Id="Package\ExtraccionJardineriaProducto"
+          TopLeft="356.5,24.5" />
+        <NodeLayout
+          Size="216,42"
+          Id="Package\ExtraccionJardineriaTiempo"
+          TopLeft="367,235" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\Limpieza de tablas cliente SQL"
+          TopLeft="35,103" />
+        <NodeLayout
+          Size="258,42"
+          Id="Package\Limpieza de tablas FechaVenta SQL"
+          TopLeft="29,235" />
+        <NodeLayout
+          Size="241,42"
+          Id="Package\Limpieza de tablas producto SQL"
+          TopLeft="39,28" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="280,47.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="76.5,0"
+              Start="0,0"
+              End="69,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="69,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="265,123">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="92,0"
+              Start="0,0"
+              End="84.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="84.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="287,256">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="80,0"
+              Start="0,0"
+              End="72.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="72.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="152,42"
+          Id="Package\ExtraccionFAC"
+          TopLeft="396,318" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\Limpieza de tablas Venta SQL"
+          TopLeft="35,320" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="262,340">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="134,0"
+              Start="0,0"
+              End="126.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="126.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\ExtraccionJardineriaCliente">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="188,42"
+          Id="Package\ExtraccionJardineriaCliente\DestinoStagingCliente"
+          TopLeft="134,161" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\ExtraccionJardineriaCliente\OrigenCliente"
+          TopLeft="156,65" />
+        <EdgeLayout
+          Id="Package\ExtraccionJardineriaCliente.Paths[ADO NET Source Output]"
+          TopLeft="228.5,107">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaCliente\DestinoStagingCliente">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaCliente\OrigenCliente">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\ExtraccionJardineriaProducto">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="198,42"
+          Id="Package\ExtraccionJardineriaProducto\DestinoStagingProducto"
+          TopLeft="249,36" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto"
+          TopLeft="17,105" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\ExtraccionJardineriaProducto\OrigenProducto"
+          TopLeft="17.5,32.5" />
+        <NodeLayout
+          Size="245,42"
+          Id="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto"
+          TopLeft="276,104" />
+        <EdgeLayout
+          Id="Package\ExtraccionJardineriaProducto.Paths[ADO NET Source Output1]"
+          TopLeft="221,125.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="55,0"
+              Start="0,0"
+              End="47.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="47.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ExtraccionJardineriaProducto.Paths[ADO NET Source Output]"
+          TopLeft="173.5,55.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75.5,0"
+              Start="0,0"
+              End="68,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="68,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaProducto\DestinoStagingProducto">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaProducto\OrigenCategoriaProducto">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaProducto\OrigenProducto">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaProducto\DestinoStagingCategoriaProducto">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\ExtraccionJardineriaTiempo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="213,42"
+          Id="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta"
+          TopLeft="295,48" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta"
+          TopLeft="31,52" />
+        <EdgeLayout
+          Id="Package\ExtraccionJardineriaTiempo.Paths[ADO NET Source Output]"
+          TopLeft="202,71">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="93,0"
+              Start="0,0"
+              End="85.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="85.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaTiempo\DestinoStagingFechaVenta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionJardineriaTiempo\OrigenFechaVenta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\ExtraccionFAC">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="146,42"
+          Id="Package\ExtraccionFAC\OrigenPedido"
+          TopLeft="45,38" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\ExtraccionFAC\OrigenDetallePedido"
+          TopLeft="46,132" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\ExtraccionFAC\DestinoStagingPedido"
+          TopLeft="303,37" />
+        <NodeLayout
+          Size="222,42"
+          Id="Package\ExtraccionFAC\DestinoStagingDetallePedido"
+          TopLeft="295,131" />
+        <EdgeLayout
+          Id="Package\ExtraccionFAC.Paths[ADO NET Source Output]"
+          TopLeft="191,58.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="112,0"
+              Start="0,0"
+              End="104.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="104.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ExtraccionFAC.Paths[ADO NET Source Output1]"
+          TopLeft="227,152.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="68,0"
+              Start="0,0"
+              End="60.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="60.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionFAC\OrigenPedido">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionFAC\OrigenDetallePedido">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionFAC\DestinoStagingPedido">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtraccionFAC\DestinoStagingDetallePedido">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
